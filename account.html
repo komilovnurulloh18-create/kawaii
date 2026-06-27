@@ -3,254 +3,242 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anime Shop — Hisob</title>
+    <title>Kawai Shop — Hisob</title>
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Anime Shop" />
-    <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="css/output.css" />
     <link rel="stylesheet" href="css/theme.css" />
     <style>
-      @media (max-width: 767px) {
-        #profile-section { margin-left: -16px; margin-right: -16px; }
+      @media (max-width: 767px) { #profile-section { margin-left: -16px; margin-right: -16px; } }
+
+      .logo-text {
+        background: linear-gradient(135deg, #f9a8d4, #e11d84, #c026d3);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text; font-weight: 900; letter-spacing: -0.02em;
       }
- 
-      /* Cover */
+
       .pc-cover {
-        position: relative; height: 170px; overflow: hidden;
+        position:relative; height:170px; overflow:hidden;
         background:
-          radial-gradient(ellipse 80% 90% at 20% 80%, rgba(139,92,246,.55) 0%, transparent 55%),
-          radial-gradient(ellipse 60% 70% at 85% 15%, rgba(244,114,182,.35) 0%, transparent 50%),
-          radial-gradient(ellipse 70% 60% at 55% 100%, rgba(99,102,241,.28) 0%, transparent 55%),
-          linear-gradient(145deg, #080618 0%, #160c38 50%, #0c0a22 100%);
+          radial-gradient(ellipse 80% 90% at 20% 80%, rgba(225,29,132,.45) 0%, transparent 55%),
+          radial-gradient(ellipse 60% 70% at 85% 15%, rgba(244,114,182,.30) 0%, transparent 50%),
+          radial-gradient(ellipse 70% 60% at 55% 100%, rgba(192,38,211,.22) 0%, transparent 55%),
+          linear-gradient(145deg, #0f0812 0%, #200a30 50%, #150818 100%);
       }
       .pc-cover::before {
         content:""; position:absolute; inset:0;
-        background-image: radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+        background-image: radial-gradient(circle, rgba(255,200,220,.06) 1px, transparent 1px);
         background-size: 28px 28px; pointer-events:none;
       }
       .pc-cover::after {
         content:""; position:absolute; inset:0;
-        background: linear-gradient(160deg, rgba(168,85,247,.18) 0%, transparent 40%, rgba(244,114,182,.1) 70%, transparent 100%);
+        background: linear-gradient(160deg, rgba(225,29,132,.15) 0%, transparent 40%, rgba(244,114,182,.08) 70%, transparent 100%);
         pointer-events:none;
       }
- 
-      /* Avatar */
+      .pc-cover-hearts { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+      .pc-cover-hearts span { position:absolute; font-size:1rem; opacity:.18; animation: floatHeart 6s ease-in-out infinite; }
+      .pc-cover-hearts span:nth-child(1) { left:10%; top:20%; animation-delay:0s; font-size:1.4rem; }
+      .pc-cover-hearts span:nth-child(2) { left:75%; top:15%; animation-delay:1.2s; }
+      .pc-cover-hearts span:nth-child(3) { left:40%; top:55%; animation-delay:2.4s; font-size:.8rem; }
+      .pc-cover-hearts span:nth-child(4) { left:88%; top:60%; animation-delay:.8s; font-size:1.2rem; }
+      .pc-cover-hearts span:nth-child(5) { left:25%; top:70%; animation-delay:3s; font-size:.7rem; }
+      @keyframes floatHeart {
+        0%,100% { transform:translateY(0) rotate(-5deg); }
+        50% { transform:translateY(-10px) rotate(5deg); }
+      }
+
       .pc-avatar-wrap { position:absolute; left:18px; bottom:-38px; z-index:5; }
       .pc-avatar {
-        width:78px; height:78px; border-radius:50%;
-        border:3.5px solid #070814;
-        background: linear-gradient(135deg,#3b1fa0,#7c3aed,#c084fc);
+        width:78px; height:78px; border-radius:50%; border:3.5px solid #0f0812;
+        background:linear-gradient(135deg,#be185d,#e11d84,#f472b6);
         display:flex; align-items:center; justify-content:center;
         font-size:30px; font-weight:900; color:#fff; overflow:hidden;
-        box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 8px 24px rgba(0,0,0,.55);
+        box-shadow:0 0 0 1px rgba(255,200,220,.16),0 8px 24px rgba(0,0,0,.55);
         letter-spacing:-1px; flex-shrink:0;
       }
       .pc-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
       .pc-online {
-        position:absolute; bottom:5px; right:5px;
-        width:16px; height:16px; border-radius:50%;
-        background:#22c55e; border:3px solid #070814;
+        position:absolute; bottom:5px; right:5px; width:16px; height:16px;
+        border-radius:50%; background:#22c55e; border:3px solid #0f0812;
         box-shadow:0 0 8px rgba(34,197,94,.6);
       }
- 
-      /* Name row */
+
       .pc-name-row {
         display:flex; align-items:flex-end; justify-content:space-between;
-        gap:10px; padding:50px 18px 14px; background:#0b0f2a;
+        gap:10px; padding:50px 18px 14px;
+        background:linear-gradient(180deg,#160a20,#12091c);
       }
       .pc-name { font-size:19px; font-weight:900; color:#fff; letter-spacing:-.025em; line-height:1.15; }
-      .pc-sub { font-size:12px; color:rgba(247,244,255,.42); margin-top:3px; word-break:break-all; }
+      .pc-sub { font-size:12px; color:rgba(255,200,230,.40); margin-top:3px; word-break:break-all; }
       .pc-logout-btn {
         flex-shrink:0; padding:8px 18px; border-radius:12px;
-        background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.11);
+        background:rgba(255,180,210,.06); border:1px solid rgba(255,180,210,.12);
         font-size:12px; font-weight:700; color:#fff; cursor:pointer;
-        transition:background .18s, border-color .18s, color .18s; white-space:nowrap;
+        transition:background .18s,border-color .18s,color .18s; white-space:nowrap;
       }
       .pc-logout-btn:hover { background:rgba(239,68,68,.14); border-color:rgba(239,68,68,.32); color:#fca5a5; }
- 
-      /* Stats */
-      .pc-stats { display:flex; background:#0b0f2a; padding:2px 0 16px; border-bottom:1px solid rgba(255,255,255,.06); }
+
+      .pc-stats { display:flex; background:linear-gradient(180deg,#12091c,#100818); padding:2px 0 16px; border-bottom:1px solid rgba(255,180,210,.07); }
       .pc-stat { flex:1; text-align:center; padding:8px 4px; cursor:pointer; border-radius:10px; transition:background .15s; }
-      .pc-stat:hover { background:rgba(255,255,255,.04); }
-      .pc-stat + .pc-stat { border-left:1px solid rgba(255,255,255,.06); }
+      .pc-stat:hover { background:rgba(225,29,132,.07); }
+      .pc-stat + .pc-stat { border-left:1px solid rgba(255,180,210,.07); }
       .pc-stat-n { font-size:18px; font-weight:900; color:#fff; line-height:1.1; }
-      .pc-stat-l { font-size:10px; font-weight:600; color:rgba(247,244,255,.38); margin-top:3px; letter-spacing:.03em; text-transform:uppercase; }
- 
-      /* Tabs */
+      .pc-stat-l { font-size:10px; font-weight:600; color:rgba(255,200,230,.38); margin-top:3px; letter-spacing:.03em; text-transform:uppercase; }
+
       .pc-tabs {
-        display:flex; background:#0b0f2a; border-bottom:1px solid rgba(255,255,255,.06);
+        display:flex; background:linear-gradient(180deg,#100818,#0f0812);
+        border-bottom:1px solid rgba(255,180,210,.07);
         overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
       }
       .pc-tabs::-webkit-scrollbar { display:none; }
       .pc-tab {
         flex:1; min-width:72px; padding:13px 6px; text-align:center;
-        font-size:12px; font-weight:700; color:rgba(247,244,255,.38);
+        font-size:12px; font-weight:700; color:rgba(255,200,230,.38);
         cursor:pointer; border-bottom:2.5px solid transparent;
-        transition:color .16s, border-color .16s; white-space:nowrap;
-        user-select:none; letter-spacing:.01em;
+        transition:color .16s,border-color .16s; white-space:nowrap; user-select:none; letter-spacing:.01em;
       }
-      .pc-tab.active { color:#c084fc; border-bottom-color:#a855f7; }
- 
-      /* Panels */
-      .pc-panel { display:none; padding:16px; }
+      .pc-tab.active { color:#f472b6; border-bottom-color:#e11d84; }
+
+      .pc-panel { display:none; padding:16px; background:linear-gradient(180deg,#0f0812,#120a1a); }
       .pc-panel.active { display:block; }
- 
-      /* Quick actions */
+
       .qa-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; margin-bottom:14px; }
       .qa-item {
-        background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07);
+        background:rgba(255,180,210,.03); border:1px solid rgba(255,180,210,.08);
         border-radius:16px; padding:13px 6px 11px; text-align:center;
         text-decoration:none; display:block; cursor:pointer;
-        transition:background .17s, border-color .17s, transform .17s;
+        transition:background .17s,border-color .17s,transform .17s;
       }
-      .qa-item:hover { background:rgba(168,85,247,.1); border-color:rgba(168,85,247,.28); transform:translateY(-2px); }
+      .qa-item:hover { background:rgba(225,29,132,.10); border-color:rgba(244,114,182,.28); transform:translateY(-2px); }
       .qa-ico { font-size:22px; line-height:1; display:block; }
-      .qa-lbl { font-size:10px; font-weight:700; color:rgba(247,244,255,.6); margin-top:6px; line-height:1.25; display:block; }
- 
-      /* Info card */
-      .i-card { background:#0f1230; border:1px solid rgba(255,255,255,.07); border-radius:20px; padding:16px; margin-bottom:10px; }
-      .i-card-hd { font-size:10px; font-weight:800; color:rgba(192,132,252,.75); text-transform:uppercase; letter-spacing:.08em; margin-bottom:6px; }
-      .i-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.045); }
+      .qa-lbl { font-size:10px; font-weight:700; color:rgba(255,200,230,.60); margin-top:6px; line-height:1.25; display:block; }
+
+      .i-card { background:linear-gradient(160deg,rgba(28,10,40,.96),rgba(18,6,28,.99)); border:1px solid rgba(225,29,132,.10); border-radius:20px; padding:16px; margin-bottom:10px; }
+      .i-card-hd { font-size:10px; font-weight:800; color:rgba(244,114,182,.75); text-transform:uppercase; letter-spacing:.08em; margin-bottom:6px; }
+      .i-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,180,210,.05); }
       .i-row:last-child { border-bottom:none; padding-bottom:0; }
-      .i-ico { width:36px; height:36px; border-radius:11px; background:rgba(168,85,247,.1); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
-      .i-lbl { font-size:10.5px; color:rgba(247,244,255,.38); line-height:1; margin-bottom:3px; }
+      .i-ico { width:36px; height:36px; border-radius:11px; background:rgba(225,29,132,.10); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+      .i-lbl { font-size:10.5px; color:rgba(255,200,230,.38); line-height:1; margin-bottom:3px; }
       .i-val { font-size:14px; color:#fff; font-weight:700; line-height:1.2; word-break:break-all; }
- 
-      /* Social link row */
-      .soc-row {
-        display:flex; align-items:center; justify-content:space-between;
-        gap:12px; padding:11px 0; border-bottom:1px solid rgba(255,255,255,.045);
-        text-decoration:none;
-      }
+
+      .soc-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 0; border-bottom:1px solid rgba(255,180,210,.05); text-decoration:none; }
       .soc-row:last-child { border-bottom:none; padding-bottom:0; }
       .soc-left { display:flex; align-items:center; gap:12px; }
       .soc-ico { width:36px; height:36px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
       .soc-name { font-size:13.5px; font-weight:700; color:#fff; }
-      .soc-sub { font-size:11px; color:rgba(247,244,255,.42); margin-top:2px; }
-      .soc-arr { color:rgba(255,255,255,.22); font-size:14px; }
- 
-      /* FAQ */
-      .faq-item { border-bottom:1px solid rgba(255,255,255,.045); }
+      .soc-sub { font-size:11px; color:rgba(255,200,230,.42); margin-top:2px; }
+      .soc-arr { color:rgba(255,180,210,.22); font-size:14px; }
+
+      .faq-item { border-bottom:1px solid rgba(255,180,210,.05); }
       .faq-item:last-child { border-bottom:none; }
-      .faq-q {
-        display:flex; align-items:center; justify-content:space-between;
-        padding:12px 0; cursor:pointer; font-size:13.5px; font-weight:700; color:#fff;
-        user-select:none;
-      }
-      .faq-q-arr { color:rgba(255,255,255,.3); font-size:13px; transition:transform .2s; }
+      .faq-q { display:flex; align-items:center; justify-content:space-between; padding:12px 0; cursor:pointer; font-size:13.5px; font-weight:700; color:#fff; user-select:none; }
+      .faq-q-arr { color:rgba(255,180,210,.30); font-size:13px; transition:transform .2s; }
       .faq-item.open .faq-q-arr { transform:rotate(90deg); }
-      .faq-a { display:none; padding:0 0 12px; font-size:12.5px; color:rgba(247,244,255,.6); line-height:1.6; }
+      .faq-a { display:none; padding:0 0 12px; font-size:12.5px; color:rgba(255,200,230,.60); line-height:1.6; }
       .faq-item.open .faq-a { display:block; }
- 
-      /* Reyting yulduzlar */
+
       .stars-display { display:flex; gap:2px; }
-      .star-filled { color:#f59e0b; font-size:16px; }
-      .star-empty  { color:rgba(255,255,255,.2); font-size:16px; }
- 
-      /* Settings */
-      .s-row { display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid rgba(255,255,255,.045); }
+      .star-filled { color:#f472b6; font-size:16px; }
+      .star-empty { color:rgba(255,200,220,.18); font-size:16px; }
+
+      .s-row { display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid rgba(255,180,210,.05); }
       .s-row:last-child { border-bottom:none; padding-bottom:0; }
       .s-row-l { display:flex; align-items:center; gap:12px; font-size:13.5px; font-weight:700; color:var(--text-main); }
       .s-ico { width:36px; height:36px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
-      .lang-select { margin-top:6px; padding:7px 12px; background:rgba(255,255,255,.05)!important; border:1px solid rgba(255,255,255,.1)!important; border-radius:10px; font-size:12.5px; color:rgba(247,244,255,.75); min-height:unset!important; cursor:pointer; }
-      .save-btn { width:100%; margin-top:14px; padding:12px; background:linear-gradient(135deg,#7c3aed,#c084fc); border-radius:14px; font-size:13.5px; font-weight:800; color:#fff; border:none; cursor:pointer; transition:filter .17s, transform .17s; box-shadow:0 6px 20px rgba(124,58,237,.3); }
+      .lang-select { margin-top:6px; padding:7px 12px; background:rgba(255,180,210,.05)!important; border:1px solid rgba(255,180,210,.10)!important; border-radius:10px; font-size:12.5px; color:rgba(255,200,230,.75); min-height:unset!important; cursor:pointer; }
+      .save-btn { width:100%; margin-top:14px; padding:12px; background:linear-gradient(135deg,#e11d84,#f472b6); border-radius:14px; font-size:13.5px; font-weight:800; color:#fff; border:none; cursor:pointer; transition:filter .17s,transform .17s; box-shadow:0 6px 20px rgba(225,29,132,.30); }
       .save-btn:hover { filter:brightness(1.07); transform:translateY(-1px); }
- 
-      /* Empty box */
-      .empty-box { background:#0f1230; border:1px solid rgba(255,255,255,.07); border-radius:20px; padding:40px 16px; text-align:center; }
+
+      .empty-box { background:linear-gradient(160deg,rgba(28,10,40,.96),rgba(18,6,28,.99)); border:1px solid rgba(225,29,132,.10); border-radius:20px; padding:40px 16px; text-align:center; }
       .empty-box .e-ico { font-size:44px; margin-bottom:12px; display:block; }
       .empty-box .e-ttl { font-size:15px; font-weight:800; color:#fff; }
-      .empty-box .e-sub { font-size:12px; color:rgba(247,244,255,.38); margin-top:5px; }
-      .empty-box .e-btn { display:inline-block; margin-top:16px; background:linear-gradient(135deg,#7c3aed,#c084fc); border-radius:12px; padding:10px 24px; font-size:12.5px; font-weight:800; color:#fff; text-decoration:none; }
- 
-      /* Admin grid */
+      .empty-box .e-sub { font-size:12px; color:rgba(255,200,230,.38); margin-top:5px; }
+      .empty-box .e-btn { display:inline-block; margin-top:16px; background:linear-gradient(135deg,#e11d84,#f472b6); border-radius:12px; padding:10px 24px; font-size:12.5px; font-weight:800; color:#fff; text-decoration:none; }
+
       .admin-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px; }
-      .admin-link { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:13px 6px; text-align:center; font-size:11.5px; font-weight:700; color:rgba(247,244,255,.75); text-decoration:none; transition:background .17s; display:block; }
-      .admin-link:hover { background:rgba(168,85,247,.12); border-color:rgba(168,85,247,.28); color:#e9d5ff; }
+      .admin-link { background:rgba(255,180,210,.04); border:1px solid rgba(255,180,210,.08); border-radius:14px; padding:13px 6px; text-align:center; font-size:11.5px; font-weight:700; color:rgba(255,200,230,.75); text-decoration:none; transition:background .17s; display:block; }
+      .admin-link:hover { background:rgba(225,29,132,.12); border-color:rgba(244,114,182,.28); color:#fbcfe8; }
+
+      #auth-section .glass { background:linear-gradient(160deg,rgba(28,10,42,.97),rgba(15,5,24,.99))!important; border:1px solid rgba(225,29,132,.14)!important; }
+      #google-login-btn, #google-register-btn { background:rgba(255,180,210,.05)!important; border:1px solid rgba(255,180,210,.12)!important; color:var(--text-main)!important; }
+      #google-login-btn:hover, #google-register-btn:hover { background:rgba(225,29,132,.10)!important; border-color:rgba(244,114,182,.28)!important; }
+      #show-register, #show-login { color:#f9a8d4!important; }
+      #show-register:hover, #show-login:hover { color:#fff!important; }
+      #login-form button[type=submit], #register-form button[type=submit] { background:linear-gradient(135deg,#e11d84,#f472b6)!important; color:#fff!important; box-shadow:0 6px 18px rgba(225,29,132,.28); }
     </style>
   </head>
   <body class="theme-bg text-white">
- 
-    <!-- MOBILE HEADER -->
-    <header class="fixed top-0 z-50 flex h-14 w-full items-center border-b border-slate-800 bg-slate-950/95 px-4 md:hidden">
-      <a href="index.html" class="text-lg font-semibold text-white">Anime Shop</a>
+
+    <header class="fixed top-0 z-50 flex h-14 w-full items-center glass-soft px-4 md:hidden" style="border-bottom:1px solid rgba(225,29,132,.10);">
+      <a href="index.html" class="logo-text text-lg">🌸 Kawai Shop</a>
     </header>
- 
-    <!-- DESKTOP HEADER -->
-    <header class="hidden border-b border-slate-800 bg-slate-950 md:block">
+
+    <header class="hidden glass-soft md:block" style="border-bottom:1px solid rgba(225,29,132,.08);">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <a href="index.html" class="text-xl font-bold text-white">Anime Shop</a>
+        <a href="index.html" class="logo-text text-xl">🌸 Kawai Shop</a>
         <nav class="flex items-center gap-3 text-sm">
-          <a href="index.html" class="text-slate-200 hover:text-white" data-i18n="home"></a>
-          <a href="catalog.html" class="text-slate-200 hover:text-white" data-i18n="catalog"></a>
+          <a href="index.html" class="text-pink-200/70 hover:text-white" data-i18n="home"></a>
+          <a href="catalog.html" class="text-pink-200/70 hover:text-white" data-i18n="catalog"></a>
         </nav>
         <div class="flex items-center gap-4 text-sm">
-          <a href="cart.html" class="relative">
-            🛒
-            <span class="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-white text-xs font-semibold text-slate-900" data-cart-count>0</span>
+          <a href="cart.html" class="relative">🛍️
+            <span class="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-pink-500 text-xs font-semibold text-white" data-cart-count>0</span>
           </a>
-          <a href="account.html" class="text-slate-200 hover:text-white" data-i18n="account"></a>
+          <a href="account.html" class="text-pink-200/70 hover:text-white" data-i18n="account"></a>
           <select data-lang-switch class="rounded-lg border border-slate-800 bg-slate-900 px-2 py-1 text-xs text-white">
-            <option value="uz">UZ</option>
-            <option value="ru">RU</option>
+            <option value="uz">UZ</option><option value="ru">RU</option>
           </select>
         </div>
       </div>
     </header>
- 
+
     <main class="mx-auto max-w-6xl space-y-8 px-4 pb-24 pt-14 md:pt-20">
- 
-      <!-- ══ AUTH ══ -->
+
+      <!-- AUTH -->
       <section id="auth-section" class="flex min-h-[calc(100vh-7rem)] items-center justify-center md:min-h-[calc(100vh-5rem)]">
         <div class="grid w-full gap-6 lg:grid-cols-2">
           <div id="login-box" class="rounded-2xl glass p-6 shadow-sm">
-            <h2 class="text-lg font-semibold text-white" data-i18n="login"></h2>
+            <p style="font-size:1.8rem;margin-bottom:.3rem;">🌸</p>
+            <h2 class="text-lg font-semibold text-white" data-i18n="login">Kirish</h2>
             <form id="login-form" class="mt-4 space-y-3">
-              <input name="email" type="email" required placeholder="Email" class="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-2 text-sm text-white" />
-              <input type="password" name="password" required data-i18n-placeholder="password" class="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-2 text-sm text-white" />
-              <button class="w-full rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900" data-i18n="login_btn"></button>
+              <input name="email" type="email" required placeholder="Email" class="w-full rounded-xl px-4 py-2 text-sm" />
+              <input type="password" name="password" required placeholder="Parol" class="w-full rounded-xl px-4 py-2 text-sm" />
+              <button type="submit" class="w-full rounded-xl px-4 py-2 text-sm font-semibold" data-i18n="login_btn">Kirish</button>
             </form>
-            <button id="google-login-btn" type="button" class="mt-3 flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-semibold text-white hover:bg-white/15">
+            <button id="google-login-btn" type="button" class="mt-3 flex w-full items-center justify-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold">
               <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="h-5 w-5" />
               <span>Google orqali kirish</span>
             </button>
-            <p class="mt-4 text-xs text-slate-400" data-i18n="demo_login"></p>
-            <button id="show-register" type="button" class="mt-4 text-xs font-semibold text-blue-200 hover:text-white">Ro'yxatdan o'tish</button>
+            <p class="mt-4 text-xs" style="color:rgba(255,200,230,.38)" data-i18n="demo_login"></p>
+            <button id="show-register" type="button" class="mt-4 text-xs font-semibold">Ro'yxatdan o'tish →</button>
           </div>
           <div id="register-box" class="rounded-2xl glass p-6 shadow-sm">
-            <h2 class="text-lg font-semibold text-white" data-i18n="register"></h2>
+            <p style="font-size:1.8rem;margin-bottom:.3rem;">💐</p>
+            <h2 class="text-lg font-semibold text-white" data-i18n="register">Ro'yxatdan o'tish</h2>
             <form id="register-form" class="mt-4 space-y-3">
-              <input name="name" required data-i18n-placeholder="name" class="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-2 text-sm text-white" />
-              <input name="email" type="email" required placeholder="Email" class="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-2 text-sm text-white" />
-              <input type="password" name="password" required data-i18n-placeholder="password" class="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-2 text-sm text-white" />
-              <button class="w-full rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900" data-i18n="register_btn"></button>
+              <input name="name" required placeholder="Ismingiz" class="w-full rounded-xl px-4 py-2 text-sm" />
+              <input name="email" type="email" required placeholder="Email" class="w-full rounded-xl px-4 py-2 text-sm" />
+              <input type="password" name="password" required placeholder="Parol" class="w-full rounded-xl px-4 py-2 text-sm" />
+              <button type="submit" class="w-full rounded-xl px-4 py-2 text-sm font-semibold" data-i18n="register_btn">Ro'yxatdan o'tish</button>
             </form>
-            <button id="google-register-btn" type="button" class="mt-3 flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-semibold text-white hover:bg-white/15">
+            <button id="google-register-btn" type="button" class="mt-3 flex w-full items-center justify-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold">
               <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="h-5 w-5" />
               <span>Google orqali davom etish</span>
             </button>
-            <button id="show-login" type="button" class="mt-4 text-xs font-semibold text-blue-200 hover:text-white">Kirish</button>
+            <button id="show-login" type="button" class="mt-4 text-xs font-semibold">← Kirish</button>
           </div>
         </div>
       </section>
- 
-      <!-- ══ PROFILE ══ -->
+
+      <!-- PROFILE -->
       <section id="profile-section" class="hidden" style="margin-top:0!important;">
- 
-        <!-- Cover -->
         <div class="pc-cover">
+          <div class="pc-cover-hearts"><span>🌸</span><span>💗</span><span>✨</span><span>🌷</span><span>💫</span></div>
           <div class="pc-avatar-wrap">
-            <div class="pc-avatar" id="pc-avatar">
-              <span id="pc-avatar-letter">?</span>
-            </div>
+            <div class="pc-avatar" id="pc-avatar"><span id="pc-avatar-letter">?</span></div>
             <div class="pc-online"></div>
           </div>
         </div>
- 
-        <!-- Name + Logout -->
+
         <div class="pc-name-row">
           <div style="min-width:0;overflow:hidden;">
             <div class="pc-name" data-profile-name>Foydalanuvchi</div>
@@ -258,30 +246,26 @@
           </div>
           <button id="logout-btn" class="pc-logout-btn" data-i18n="logout">Chiqish</button>
         </div>
- 
-        <!-- Stats -->
+
         <div class="pc-stats">
           <div class="pc-stat" onclick="switchTab('orders')">
             <div class="pc-stat-n" id="stat-orders">0</div>
             <div class="pc-stat-l">Buyurtma</div>
           </div>
           <div class="pc-stat">
-            <!-- reyting ko'rsatiladi -->
-            <div class="pc-stat-n" id="stat-rating-display">⭐ 0.0</div>
+            <div class="pc-stat-n" id="stat-rating-display">🌸 0.0</div>
             <div class="pc-stat-l">Reyting</div>
           </div>
         </div>
- 
-        <!-- Tabs -->
+
         <div class="pc-tabs">
           <div class="pc-tab active" data-tab="info">Ma'lumot</div>
           <div class="pc-tab" data-tab="orders">Buyurtmalar</div>
           <div class="pc-tab" data-tab="about">Biz haqimizda</div>
           <div class="pc-tab" data-tab="settings">Sozlamalar</div>
         </div>
- 
-        <!-- Admin -->
-        <section id="admin-shortcuts" class="hidden" style="padding:16px 16px 0;">
+
+        <section id="admin-shortcuts" class="hidden" style="padding:16px 16px 0;background:linear-gradient(180deg,#0f0812,#120a1a);">
           <div class="i-card">
             <div class="i-card-hd">⚡ Admin menyu</div>
             <div class="admin-grid">
@@ -291,68 +275,35 @@
             </div>
           </div>
         </section>
- 
-        <!-- ══ TAB: MA'LUMOT ══ -->
+
+        <!-- Tab: Ma'lumot -->
         <div class="pc-panel active" id="tab-info">
- 
-          <!-- Quick actions -->
           <div class="qa-grid" style="grid-template-columns:repeat(3,1fr)!important;">
-            <a href="orders.html" class="qa-item">
-              <span class="qa-ico">📦</span>
-              <span class="qa-lbl">Buyurtmalar</span>
-            </a>
-            <a href="cart.html" class="qa-item">
-              <span class="qa-ico">🛒</span>
-              <span class="qa-lbl">Karzinka</span>
-            </a>
-            <a href="#" class="qa-item" onclick="switchTab('about');return false;">
-              <span class="qa-ico">ℹ️</span>
-              <span class="qa-lbl">Biz haqida</span>
-            </a>
+            <a href="orders.html" class="qa-item"><span class="qa-ico">📦</span><span class="qa-lbl">Buyurtmalar</span></a>
+            <a href="cart.html" class="qa-item"><span class="qa-ico">🛍️</span><span class="qa-lbl">Savat</span></a>
+            <a href="#" class="qa-item" onclick="switchTab('about');return false;"><span class="qa-ico">🌸</span><span class="qa-lbl">Biz haqida</span></a>
           </div>
- 
-          <!-- Shaxsiy ma'lumotlar -->
           <div class="i-card">
             <div class="i-card-hd">Shaxsiy ma'lumotlar</div>
+            <div class="i-row"><div class="i-ico">👤</div><div><div class="i-lbl">Ism</div><div class="i-val" data-profile-name>—</div></div></div>
+            <div class="i-row"><div class="i-ico">📧</div><div><div class="i-lbl">Email</div><div class="i-val" data-profile-email>—</div></div></div>
+            <div class="i-row"><div class="i-ico">📱</div><div><div class="i-lbl">Telefon</div><div class="i-val" data-profile-phone>—</div></div></div>
             <div class="i-row">
-              <div class="i-ico">👤</div>
-              <div>
-                <div class="i-lbl">Ism</div>
-                <div class="i-val" data-profile-name>—</div>
-              </div>
-            </div>
-            <div class="i-row">
-              <div class="i-ico">📧</div>
-              <div>
-                <div class="i-lbl">Email</div>
-                <div class="i-val" data-profile-email>—</div>
-              </div>
-            </div>
-            <div class="i-row">
-              <div class="i-ico">📱</div>
-              <div>
-                <div class="i-lbl">Telefon</div>
-                <div class="i-val" data-profile-phone>—</div>
-              </div>
-            </div>
-            <!-- Reyting ko'rsatish -->
-            <div class="i-row">
-              <div class="i-ico">⭐</div>
+              <div class="i-ico">🌸</div>
               <div>
                 <div class="i-lbl">Reytingim</div>
                 <div style="display:flex;align-items:center;gap:8px;margin-top:3px;">
                   <div class="stars-display" id="stars-display"></div>
-                  <span style="font-size:14px;font-weight:800;color:#f59e0b;" id="rating-text">0.0</span>
-                  <span style="font-size:11px;color:rgba(247,244,255,.38);">/ 5.0</span>
+                  <span style="font-size:14px;font-weight:800;color:#f472b6;" id="rating-text">0.0</span>
+                  <span style="font-size:11px;color:rgba(255,200,230,.38);">/ 5.0</span>
                 </div>
-                <div style="font-size:10.5px;color:rgba(247,244,255,.38);margin-top:3px;">Har bir zakaz +0.1 reyting beradi</div>
+                <div style="font-size:10.5px;color:rgba(255,200,230,.38);margin-top:3px;">Har bir zakaz +0.1 reyting beradi</div>
               </div>
             </div>
           </div>
- 
         </div>
- 
-        <!-- ══ TAB: BUYURTMALAR ══ -->
+
+        <!-- Tab: Buyurtmalar -->
         <div class="pc-panel" id="tab-orders">
           <div class="empty-box">
             <span class="e-ico">📦</span>
@@ -361,144 +312,76 @@
             <a href="orders.html" class="e-btn">Buyurtmalarni ko'rish</a>
           </div>
         </div>
- 
-        <!-- Wishlist panel — account.js uchun yashirin, ko'rinmaydi -->
+
+        <!-- Tab: Wishlist (yashirin) -->
         <div class="pc-panel" id="tab-wishlist" style="display:none!important;">
           <section id="user-wishlist">
-            <div id="wishlist-empty" class="hidden empty-box" data-i18n="wishlist_empty">
-              <span class="e-ico">❤️</span>
-              <div class="e-ttl">Wishlist bo'sh</div>
+            <div id="wishlist-empty" class="hidden empty-box">
+              <span class="e-ico">🩷</span>
+              <div class="e-ttl">Sevimlilar bo'sh</div>
               <div class="e-sub">Sevimli mahsulotlarni bu yerga saqlang</div>
             </div>
             <div id="wishlist-list" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
           </section>
         </div>
- 
-        <!-- ══ TAB: BIZ HAQIMIZDA ══ -->
+
+        <!-- Tab: Biz haqimizda -->
         <div class="pc-panel" id="tab-about">
- 
-          <!-- Sayt haqida -->
           <div class="i-card">
-            <div class="i-card-hd">🏪 Anime Shop haqida</div>
-            <div style="font-size:13px;color:rgba(247,244,255,.65);line-height:1.7;padding:6px 0 10px;">
-              <strong style="color:#fff;">Anime Shop</strong> — O'zbekistondagi eng yirik anime mahsulotlari do'koni. Biz anime sevuvchilar uchun sifatli figurkalar, kiyimlar, aksessuarlar va kitoblarni taklif etamiz.<br><br>
-              🎌 Yaponiya va Koreya brendlari<br>
+            <div class="i-card-hd">🌸 Kawai Shop haqida</div>
+            <div style="font-size:13px;color:rgba(255,200,230,.65);line-height:1.7;padding:6px 0 10px;">
+              <strong style="color:#fff;">Kawai Shop</strong> — qizlar uchun yaratilgan maxsus onlayn do'kon.<br><br>
+              👗 Kiyim va aksessuarlar<br>
+              💄 Kosmetika va parfyum<br>
+              💍 Zargarlik va sumkalar<br>
               🚚 O'zbekiston bo'ylab yetkazib berish<br>
-              ✅ 100% original mahsulotlar<br>
-              💬 Tez va ishonchli xizmat
+              ✅ 100% sifatli mahsulotlar
             </div>
           </div>
- 
-          <!-- Ijtimoiy tarmoqlar -->
           <div class="i-card">
             <div class="i-card-hd">📲 Ijtimoiy tarmoqlar</div>
- 
-            <a href="https://t.me/animeshopuz_support" target="_blank" class="soc-row">
+            <a href="https://t.me/kawaishopuz_support" target="_blank" class="soc-row">
               <div class="soc-left">
                 <div class="soc-ico" style="background:rgba(0,136,204,.15);">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="#29b6f6"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.26 13.447l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.888.112z"/></svg>
                 </div>
-                <div>
-                  <div class="soc-name">Telegram Guruh</div>
-                  <div class="soc-sub">@animeshopuz_support</div>
-                </div>
+                <div><div class="soc-name">Telegram Guruh</div><div class="soc-sub">@kawaishopuz_support</div></div>
               </div>
               <span class="soc-arr">›</span>
             </a>
- 
-            <a href="https://t.me/animeshopuz_admin" target="_blank" class="soc-row">
+            <a href="https://www.instagram.com/kawaiShop_uz" target="_blank" class="soc-row">
               <div class="soc-left">
-                <div class="soc-ico" style="background:rgba(0,136,204,.15);">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="#29b6f6"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.26 13.447l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.888.112z"/></svg>
-                </div>
-                <div>
-                  <div class="soc-name">Telegram Admin</div>
-                  <div class="soc-sub">@animeshopuz_admin</div>
-                </div>
+                <div class="soc-ico" style="background:rgba(225,48,108,.12);">📸</div>
+                <div><div class="soc-name">Instagram</div><div class="soc-sub">@kawaiShop_uz</div></div>
               </div>
               <span class="soc-arr">›</span>
             </a>
- 
-            <a href="https://www.instagram.com/animeshop__uz" target="_blank" class="soc-row">
-              <div class="soc-left">
-                <div class="soc-ico" style="background:rgba(225,48,108,.12);">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="url(#ig-grad)">
-                    <defs>
-                      <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
-                        <stop offset="0%" style="stop-color:#f09433"/>
-                        <stop offset="25%" style="stop-color:#e6683c"/>
-                        <stop offset="50%" style="stop-color:#dc2743"/>
-                        <stop offset="75%" style="stop-color:#cc2366"/>
-                        <stop offset="100%" style="stop-color:#bc1888"/>
-                      </linearGradient>
-                    </defs>
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                  </svg>
-                </div>
-                <div>
-                  <div class="soc-name">Instagram</div>
-                  <div class="soc-sub">@animeshop__uz</div>
-                </div>
-              </div>
-              <span class="soc-arr">›</span>
-            </a>
- 
             <a href="tel:+998939541200" class="soc-row">
               <div class="soc-left">
                 <div class="soc-ico" style="background:rgba(34,197,94,.12);">📞</div>
-                <div>
-                  <div class="soc-name">Telefon raqam</div>
-                  <div class="soc-sub">+998 93 954 12 00</div>
-                </div>
+                <div><div class="soc-name">Telefon</div><div class="soc-sub">+998 93 954 12 00</div></div>
               </div>
-              <span class="soc-arr">></span>
+              <span class="soc-arr">›</span>
             </a>
           </div>
- 
-          <!-- Savol-Javob -->
           <div class="i-card">
-            <div class="i-card-hd">❓ Savol-Javob (FAQ)</div>
- 
+            <div class="i-card-hd">❓ Savol-Javob</div>
             <div class="faq-item">
-              <div class="faq-q" onclick="toggleFaq(this)">
-                <span>Yetkazib berish qancha vaqt oladi?</span>
-                <span class="faq-q-arr">›</span>
-              </div>
-              <div class="faq-a">O'zbekistanga kelgani bilan hamma viloyatga 2-6 kungacha yetkazib beriladi</div>
+              <div class="faq-q" onclick="toggleFaq(this)"><span>Yetkazib berish qancha vaqt?</span><span class="faq-q-arr">›</span></div>
+              <div class="faq-a">Toshkent 1-2 kun, viloyatlar 3-5 kun.</div>
             </div>
- 
             <div class="faq-item">
-              <div class="faq-q" onclick="toggleFaq(this)">
-                <span>To'lov qanday amalga oshiriladi?</span>
-                <span class="faq-q-arr">›</span>
-              </div>
-              <div class="faq-a">Click, Payme va bank o'tkazmasi orqali to'lash mumkin</div>
+              <div class="faq-q" onclick="toggleFaq(this)"><span>To'lov usullari?</span><span class="faq-q-arr">›</span></div>
+              <div class="faq-a">Click, Payme va bank o'tkazmasi.</div>
             </div>
- 
             <div class="faq-item">
-              <div class="faq-q" onclick="toggleFaq(this)">
-                <span>Admin bilan qanday bog'lanaman?</span>
-                <span class="faq-q-arr">›</span>
-              </div>
-              <div class="faq-a">
-                Telegram admin: <a href="https://t.me/animeshopuz_admin" target="_blank" style="color:#c084fc;font-weight:700;">@animeshopuz_admin</a><br>
-                Telegram guruh: <a href="https://t.me/animeshopuz_support" target="_blank" style="color:#c084fc;font-weight:700;">@animeshopuz_support</a><br>
-                Telefon: <a href="tel:+998939541200" style="color:#c084fc;font-weight:700;">+998 93 954 12 00</a>
-              </div>
-            </div>
- 
-            <div class="faq-item">
-              <div class="faq-q" onclick="toggleFaq(this)">
-                <span>Mahsulotlar originalmidi?</span>
-                <span class="faq-q-arr">›</span>
-              </div>
-              <div class="faq-a">Ha! Barcha mahsulotlarimiz 100% original bo'lib, Yaponiya va Koreya brendlaridan to'g'ridan-to'g'ri import qilingan.</div>
+              <div class="faq-q" onclick="toggleFaq(this)"><span>Mahsulot qaytarish mumkinmi?</span><span class="faq-q-arr">›</span></div>
+              <div class="faq-a">Ha! 3 kun ichida ayirboshlash yoki qaytarish mumkin.</div>
             </div>
           </div>
- 
         </div>
- 
-        <!-- ══ TAB: SOZLAMALAR ══ -->
+
+        <!-- Tab: Sozlamalar -->
         <div class="pc-panel" id="tab-settings">
           <div class="i-card">
             <div class="i-card-hd">Til va interfeys</div>
@@ -506,7 +389,7 @@
               <form id="settings-form">
                 <div class="s-row" style="border-bottom:none;padding-bottom:0;">
                   <div class="s-row-l">
-                    <div class="s-ico" style="background:rgba(168,85,247,.12);">🌐</div>
+                    <div class="s-ico" style="background:rgba(225,29,132,.12);">🌐</div>
                     <div>
                       <div style="font-size:13.5px;font-weight:700;" data-i18n="language">Til</div>
                       <select name="language" class="lang-select">
@@ -520,43 +403,34 @@
               </form>
             </section>
           </div>
- 
           <div class="i-card" style="margin-top:10px;border-color:rgba(239,68,68,.15);">
             <div class="i-card-hd" style="color:rgba(252,165,165,.65);">Xavfli zona</div>
             <div class="s-row" style="border-bottom:none;padding-bottom:0;">
               <div class="s-row-l">
-                <div class="s-ico" style="background:rgba(239,68,68,.1);">🚪</div>
+                <div class="s-ico" style="background:rgba(239,68,68,.10);">🚪</div>
                 <span style="color:#fca5a5;">Hisobdan chiqish</span>
               </div>
-              <button id="logout-btn-2" style="padding:8px 18px;border-radius:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);font-size:12px;font-weight:800;color:#fca5a5;cursor:pointer;">Chiqish</button>
+              <button id="logout-btn-2" style="padding:8px 18px;border-radius:10px;background:rgba(239,68,68,.10);border:1px solid rgba(239,68,68,.25);font-size:12px;font-weight:800;color:#fca5a5;cursor:pointer;">Chiqish</button>
             </div>
           </div>
         </div>
- 
+
       </section>
     </main>
- 
-    <!-- BOTTOM NAV -->
-    <nav class="fixed bottom-0 left-0 right-0 z-50 border border-white/10 glass-soft backdrop-blur md:hidden">
-      <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3 text-xs text-white/70">
-        <a href="index.html" class="flex flex-col items-center gap-1">
-          <span>🏠</span><span data-i18n="home">Bosh</span>
+
+    <nav class="bottom-nav fixed bottom-0 left-0 right-0 z-50 glass-soft md:hidden">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3 text-xs">
+        <a href="index.html" class="nav-item"><span>🏠</span><span data-i18n="home">Bosh</span></a>
+        <a href="catalog.html" class="nav-item"><span>🛍️</span><span data-i18n="catalog">Katalog</span></a>
+        <a href="cart.html" class="nav-item relative">
+          <span>🛒</span><span data-i18n="cart">Savat</span>
+          <span class="absolute -right-2 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-pink-500 text-[10px] font-semibold text-white" data-cart-count>0</span>
         </a>
-        <a href="catalog.html" class="flex flex-col items-center gap-1">
-          <span>🛍️</span><span data-i18n="catalog">Tovarlar</span>
-        </a>
-        <a href="cart.html" class="relative flex flex-col items-center gap-1">
-          <span>🛒</span><span data-i18n="cart">Karzinka</span>
-          <span class="absolute -right-2 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-white text-[10px] font-semibold text-slate-900" data-cart-count>0</span>
-        </a>
-        <a href="account.html" class="flex flex-col items-center gap-1 text-white">
-          <span>👤</span><span data-i18n="account">Account</span>
-        </a>
+        <a href="account.html" class="nav-item active text-white"><span>👤</span><span data-i18n="account">Profil</span></a>
       </div>
     </nav>
- 
+
     <script>
-      /* ── Tab switch ── */
       function switchTab(name) {
         document.querySelectorAll('.pc-tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.pc-panel').forEach(p => p.classList.remove('active'));
@@ -565,90 +439,55 @@
         if (tab) tab.classList.add('active');
         if (panel) panel.classList.add('active');
       }
-      document.querySelectorAll('.pc-tab').forEach(t => {
-        t.addEventListener('click', () => switchTab(t.dataset.tab));
-      });
- 
-      /* ── logout-btn-2 ── */
-      document.getElementById('logout-btn-2')?.addEventListener('click', () => {
-        document.getElementById('logout-btn')?.click();
-      });
- 
-      /* ── FAQ toggle ── */
-      function toggleFaq(btn) {
-        const item = btn.closest('.faq-item');
-        item.classList.toggle('open');
-      }
- 
-      /* ── Reyting tizimi ── */
-      /* Har bir zakaz qo'shilganda +0.1 reyting */
-      function getRating() {
-        return parseFloat(localStorage.getItem('userRating') || '0');
-      }
+      document.querySelectorAll('.pc-tab').forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+      document.getElementById('logout-btn-2')?.addEventListener('click', () => document.getElementById('logout-btn')?.click());
+      function toggleFaq(btn) { btn.closest('.faq-item').classList.toggle('open'); }
+
+      function getRating() { return parseFloat(localStorage.getItem('userRating') || '0'); }
       function addRatingForOrder() {
-        let r = getRating();
-        r = Math.min(5, parseFloat((r + 0.1).toFixed(1)));
-        localStorage.setItem('userRating', r);
-        renderRating(r);
+        let r = Math.min(5, parseFloat((getRating() + 0.1).toFixed(1)));
+        localStorage.setItem('userRating', r); renderRating(r);
       }
       function renderRating(r) {
         const stars = document.getElementById('stars-display');
         const txt = document.getElementById('rating-text');
         const statEl = document.getElementById('stat-rating-display');
         if (!stars || !txt) return;
-        const full = Math.floor(r);
-        const half = r - full >= 0.5;
+        const full = Math.floor(r); const half = r - full >= 0.5;
         let html = '';
         for (let i = 0; i < 5; i++) {
           if (i < full) html += '<span class="star-filled">★</span>';
           else if (i === full && half) html += '<span class="star-filled" style="opacity:.6;">★</span>';
           else html += '<span class="star-empty">★</span>';
         }
-        stars.innerHTML = html;
-        txt.textContent = r.toFixed(1);
-        if (statEl) statEl.textContent = '⭐ ' + r.toFixed(1);
+        stars.innerHTML = html; txt.textContent = r.toFixed(1);
+        if (statEl) statEl.textContent = '🌸 ' + r.toFixed(1);
       }
-      /* Init rating on load */
       renderRating(getRating());
- 
-      /* ── Avatar letter ── */
+
       function refreshAvatar() {
         const letter = document.getElementById('pc-avatar-letter');
         if (!letter) return;
-        const nameEl = document.querySelector('.pc-name[data-profile-name]');
-        const n = nameEl?.textContent?.trim() || '';
+        const n = document.querySelector('.pc-name[data-profile-name]')?.textContent?.trim() || '';
         letter.textContent = n ? n[0].toUpperCase() : '?';
       }
       const mo = new MutationObserver(refreshAvatar);
-      document.querySelectorAll('[data-profile-name]').forEach(el =>
-        mo.observe(el, { childList: true, characterData: true, subtree: true })
-      );
+      document.querySelectorAll('[data-profile-name]').forEach(el => mo.observe(el, {childList:true,characterData:true,subtree:true}));
       const ps = document.getElementById('profile-section');
-      if (ps) mo.observe(ps, { attributes: true, attributeFilter: ['class'] });
- 
-      /* ── Hook into account.js order events ── */
-      /* account.js wishlist click event orqali order count o'zgartirilganda
-         yoki storage event orqali aniqlaymiz */
+      if (ps) mo.observe(ps, {attributes:true,attributeFilter:['class']});
+
       const origSetItem = localStorage.setItem.bind(localStorage);
       localStorage.setItem = function(key, val) {
-        const oldVal = localStorage.getItem(key);
-        origSetItem(key, val);
-        /* orders o'zgarsa reyting qo'shamiz */
+        const oldVal = localStorage.getItem(key); origSetItem(key, val);
         if (key === 'orders' || key.toLowerCase().includes('order')) {
           try {
-            const oldArr = JSON.parse(oldVal || '[]');
-            const newArr = JSON.parse(val || '[]');
-            if (newArr.length > oldArr.length) {
-              const diff = newArr.length - oldArr.length;
-              for (let i = 0; i < diff; i++) addRatingForOrder();
-            }
+            const oldArr = JSON.parse(oldVal || '[]'); const newArr = JSON.parse(val || '[]');
+            if (newArr.length > oldArr.length) { const diff = newArr.length - oldArr.length; for (let i=0;i<diff;i++) addRatingForOrder(); }
           } catch(e) {}
         }
       };
-      /* Also expose globally so other scripts can call */
       window.addRatingForOrder = addRatingForOrder;
     </script>
- 
     <script type="module" src="js/account.js"></script>
   </body>
 </html>
