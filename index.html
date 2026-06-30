@@ -42,6 +42,10 @@
     />
     <meta name="twitter:image" content="https://kawaishop.uz/img/hero.webp" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/output.css" />
     <link rel="stylesheet" href="css/theme.css" />
 
@@ -58,81 +62,202 @@
         border: 0;
       }
 
-      /* ===== LOGO GRADIENT ===== */
+      body { font-family: 'Nunito', sans-serif; }
+
+      /* ===== LOGO ===== */
       .logo-text {
-        background: linear-gradient(135deg, #f9a8d4, #e11d84, #c026d3);
+        font-family: 'Fredoka', sans-serif;
+        background: linear-gradient(135deg, #ffb3d1, #ff4d8d, #b48cff);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        font-weight: 900;
-        letter-spacing: -0.02em;
+        font-weight: 700;
+        letter-spacing: -0.01em;
       }
 
-      /* ===== HERO TAGLINE ===== */
+      /* ═══════════ HERO ═══════════
+         Signature: a tilted polaroid-style badge floats over the
+         headline, like a sticker pinned onto the page.            */
       .hero-section {
         position: relative;
-        text-align: center;
-        padding: 2rem 0 0.5rem;
+        padding: 1.6rem 0 .4rem;
       }
 
-      .hero-tagline {
-        font-size: clamp(0.8rem, 2.5vw, 1rem);
-        color: rgba(255, 200, 230, 0.70);
-        letter-spacing: 0.12em;
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+        font-size: .68rem;
+        font-weight: 800;
+        letter-spacing: .16em;
         text-transform: uppercase;
-        margin-bottom: 0.4rem;
-        font-weight: 600;
+        color: #ffb3d1;
+      }
+      .hero-eyebrow .dot {
+        width: 5px; height: 5px; border-radius: 50%;
+        background: #ff4d8d;
+        box-shadow: 0 0 8px rgba(255,77,141,.8);
       }
 
       .hero-title {
-        font-size: clamp(1.6rem, 5vw, 2.8rem);
-        font-weight: 900;
-        letter-spacing: -0.03em;
-        line-height: 1.1;
-        background: linear-gradient(135deg, #fff0f7 0%, #fbcfe8 40%, #f472b6 80%);
+        font-family: 'Fredoka', sans-serif;
+        font-size: clamp(1.9rem, 6vw, 3rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.08;
+        color: #fff;
+        margin-top: .5rem;
+        max-width: 13ch;
+      }
+      .hero-title em {
+        font-style: normal;
+        background: linear-gradient(135deg, #ffb3d1 0%, #ff4d8d 60%, #b48cff 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        margin-bottom: 0.5rem;
       }
 
       .hero-sub {
-        font-size: clamp(0.82rem, 1.8vw, 0.95rem);
-        color: rgba(255, 200, 230, 0.58);
-        max-width: 340px;
-        margin: 0 auto;
+        font-size: .85rem;
+        color: rgba(255, 230, 240, 0.50);
+        max-width: 34ch;
+        margin-top: .55rem;
         line-height: 1.55;
       }
 
-      /* ===== SEARCH BAR ===== */
+      /* Floating sticker badge — the signature element */
+      .hero-sticker {
+        position: absolute;
+        top: 1.1rem;
+        right: .2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff4d8d, #ff8a7a);
+        transform: rotate(8deg);
+        box-shadow: 0 10px 26px rgba(255,77,141,.4), 0 0 0 4px rgba(255,255,255,.06);
+        text-align: center;
+      }
+      .hero-sticker .pct {
+        font-family: 'Fredoka', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+      }
+      .hero-sticker .lbl {
+        font-size: .56rem;
+        font-weight: 800;
+        color: rgba(255,255,255,.85);
+        letter-spacing: .03em;
+        margin-top: 2px;
+      }
+      @media (max-width: 420px) {
+        .hero-sticker { width: 66px; height: 66px; top: .3rem; }
+        .hero-sticker .pct { font-size: .9rem; }
+        .hero-sticker .lbl { font-size: .48rem; }
+      }
+
+      /* ===== SEARCH ===== */
       #searchInputHome {
         background:
           linear-gradient(180deg, rgba(255, 180, 210, 0.06), rgba(255, 180, 210, 0.02)),
           rgba(14, 6, 22, 0.88) !important;
       }
 
-      /* ===== SECTION LABEL ===== */
-      .section-emoji {
-        font-size: 1.15rem;
-        margin-right: 0.3rem;
+      /* ===== SECTION HEADERS ===== */
+      .section-eyebrow {
+        font-family: 'Fredoka', sans-serif;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: .4rem;
       }
 
-      /* ===== BADGE NEW ===== */
       .badge-new {
         display: inline-flex;
         align-items: center;
         gap: 0.25rem;
         padding: 0.22rem 0.6rem;
         border-radius: 999px;
-        font-size: 0.65rem;
+        font-size: 0.62rem;
         font-weight: 800;
         letter-spacing: 0.06em;
         text-transform: uppercase;
-        background: linear-gradient(135deg, rgba(225,29,132,0.22), rgba(244,114,182,0.12));
-        border: 1px solid rgba(244, 114, 182, 0.28);
-        color: #fbcfe8;
-        margin-left: 0.5rem;
+        background: linear-gradient(135deg, #ff4d8d, #ff8a7a);
+        color: #fff;
+        margin-left: 0.4rem;
         vertical-align: middle;
+        box-shadow: 0 3px 10px rgba(255,77,141,.3);
+      }
+
+      /* ═══════════ CATEGORY TABS (same language as catalog) ═══════════ */
+      .kc-cat-scroller {
+        display: flex;
+        gap: .55rem;
+        overflow-x: auto;
+        padding: .2rem .1rem .6rem;
+        scrollbar-width: none;
+      }
+      .kc-cat-scroller::-webkit-scrollbar { display: none; }
+
+      .kc-tab {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: .4rem;
+        padding: .58rem 1rem .58rem .8rem;
+        border-radius: 13px;
+        font-family: 'Fredoka', sans-serif;
+        font-size: .78rem;
+        font-weight: 600;
+        color: rgba(255,235,243,.78);
+        background: rgba(255,255,255,.03);
+        border: 1.5px dashed rgba(255,140,180,.22);
+        text-decoration: none;
+        white-space: nowrap;
+        transition: transform .18s ease, border-color .18s ease, color .18s ease;
+        transform: rotate(var(--tilt, 0deg));
+      }
+      .kc-tab:nth-child(odd)  { --tilt: -1.1deg; }
+      .kc-tab:nth-child(even) { --tilt: 1.1deg; }
+      .kc-tab .ico { font-size: .95rem; }
+      .kc-tab:hover {
+        transform: rotate(0deg) translateY(-2px);
+        border-color: rgba(255,111,165,.4);
+        color: #fff;
+      }
+
+      /* ═══════════ PROMO — polaroid stack ═══════════ */
+      .kc-promo-wrap {
+        position: relative;
+        padding-top: .4rem;
+      }
+      .kc-promo-wrap::before,
+      .kc-promo-wrap::after {
+        content: "";
+        position: absolute;
+        inset: 6px 10px -6px 10px;
+        border-radius: 24px;
+        background: rgba(255,255,255,.025);
+        border: 1px solid rgba(255,140,180,.10);
+        z-index: 0;
+      }
+      .kc-promo-wrap::before { transform: rotate(-2deg); }
+      .kc-promo-wrap::after  { transform: rotate(2deg); z-index: -1; }
+      .promo-shell { position: relative; z-index: 1; }
+
+      /* ===== FOOTER ===== */
+      .kc-footer-mark {
+        font-family: 'Fredoka', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
       }
     </style>
 
@@ -153,8 +278,89 @@
     }
   }
   </script>
+      <style id="kc-loader-style">
+      #kc-page-loader {
+        position: fixed; inset: 0; z-index: 99999;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: 1.1rem;
+        background:
+          radial-gradient(800px 500px at 5% 0%, rgba(225,29,132,.18), transparent 55%),
+          radial-gradient(600px 400px at 95% 5%, rgba(192,38,211,.12), transparent 50%),
+          linear-gradient(180deg, #0f0812 0%, #150d1a 100%);
+        transition: opacity .32s ease, visibility .32s ease;
+      }
+      #kc-page-loader.kc-hidden {
+        opacity: 0; visibility: hidden; pointer-events: none;
+      }
+      .kc-loader-logo {
+        font-family: "Fredoka", "Nunito", sans-serif;
+        font-size: 1.35rem; font-weight: 700;
+        background: linear-gradient(135deg, #ffb3d1, #ff4d8d, #b48cff);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text; letter-spacing: -.01em;
+      }
+      .kc-spinner-ring { position: relative; width: 54px; height: 54px; }
+      .kc-spinner-ring svg {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        animation: kc-spin 1s linear infinite;
+      }
+      .kc-spinner-ring svg circle { fill: none; stroke-width: 3.5; stroke-linecap: round; }
+      .kc-spinner-ring svg .kc-track { stroke: rgba(255,180,210,.10); }
+      .kc-spinner-ring svg .kc-arc {
+        stroke: url(#kc-grad);
+        stroke-dasharray: 110 200;
+        animation: kc-spin 1s linear infinite, kc-dash .9s ease-in-out infinite alternate;
+      }
+      @keyframes kc-spin { 100% { transform: rotate(360deg); } }
+      @keyframes kc-dash {
+        from { stroke-dasharray: 20 200; }
+        to   { stroke-dasharray: 120 200; }
+      }
+      .kc-loader-dots { display: flex; gap: .4rem; }
+      .kc-loader-dots span {
+        width: 5px; height: 5px; border-radius: 50%;
+        background: rgba(255,140,180,.5);
+        animation: kc-dot .9s ease-in-out infinite;
+      }
+      .kc-loader-dots span:nth-child(1) { animation-delay: 0s; }
+      .kc-loader-dots span:nth-child(2) { animation-delay: .18s; }
+      .kc-loader-dots span:nth-child(3) { animation-delay: .36s; }
+      @keyframes kc-dot {
+        0%, 100% { transform: scale(.7); opacity: .35; }
+        50%       { transform: scale(1.2); opacity: 1; background: #ff4d8d; }
+      }
+    </style>
   </head>
   <body class="anime-bg text-white">
+    <!-- PAGE LOADER -->
+    <div id="kc-page-loader" role="status" aria-label="Yuklanmoqda">
+      <svg width="0" height="0" style="position:absolute">
+        <defs>
+          <linearGradient id="kc-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#ffb3d1"/>
+            <stop offset="50%"  stop-color="#ff4d8d"/>
+            <stop offset="100%" stop-color="#b48cff"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="kc-spinner-ring">
+        <svg viewBox="0 0 54 54">
+          <circle class="kc-track" cx="27" cy="27" r="23"/>
+          <circle class="kc-arc"   cx="27" cy="27" r="23"/>
+        </svg>
+      </div>
+      <div class="kc-loader-logo">🌸 Kawai Shop</div>
+      <div class="kc-loader-dots"><span></span><span></span><span></span></div>
+    </div>
+    <script>
+      (function(){
+        var el = document.getElementById("kc-page-loader");
+        function hide(){ if(el) el.classList.add("kc-hidden"); }
+        if(document.readyState === "complete"){ setTimeout(hide, 180); }
+        else { window.addEventListener("load", function(){ setTimeout(hide, 220); }); }
+        setTimeout(hide, 3500);
+      })();
+    </script>
 
     <!-- ====== MOBILE TOP NAV ====== -->
     <header class="fixed top-0 z-50 flex h-14 w-full items-center glass-soft px-4 md:hidden">
@@ -222,9 +428,13 @@
 
       <!-- ====== HERO ====== -->
       <section class="hero-section">
-        <p class="hero-tagline">✨ Yangi kolleksiya</p>
-        <h1 class="hero-title">Sen uchun, sening stilingda</h1>
-        <p class="hero-sub">Kiyim, aksessuar, go'zallik — hammasi bir joyda</p>
+        <div class="hero-sticker">
+          <span class="pct">-30%</span>
+          <span class="lbl">YANGILAR</span>
+        </div>
+        <p class="hero-eyebrow"><span class="dot"></span>Yangi kolleksiya</p>
+        <h1 class="hero-title">Sen uchun, <em>sening</em> stilingda</h1>
+        <p class="hero-sub">Kiyim, aksessuar, go'zallik — hammasi bir joyda, sen uchun tanlab olindi</p>
       </section>
 
       <!-- ====== SEARCH ====== -->
@@ -246,34 +456,36 @@
         </div>
 
         <!-- PROMO SLIDER -->
-        <div class="space-y-3">
-          <div class="promo-shell">
-            <div id="promo-track" class="flex w-full">
-              <div class="promo-slide">
-                <a href="catalog.html" class="promo-link">
-                  <img src="/img/b.webp" alt="Kawai Shop banner 1" class="promo-banner-img" />
-                </a>
-              </div>
-              <div class="promo-slide">
-                <a href="catalog.html" class="promo-link">
-                  <img src="/img/anime.webp" alt="Kawai Shop banner 2" class="promo-banner-img" />
-                </a>
-              </div>
-              <div class="promo-slide">
-                <a href="catalog.html" class="promo-link">
-                  <img src="/img/a.webp" alt="Kawai Shop banner 3" class="promo-banner-img" />
-                </a>
+        <div class="kc-promo-wrap">
+          <div class="space-y-3 promo-shell">
+            <div class="promo-shell" style="border-radius:24px;overflow:hidden;">
+              <div id="promo-track" class="flex w-full">
+                <div class="promo-slide">
+                  <a href="catalog.html" class="promo-link">
+                    <img src="/img/b.webp" alt="Kawai Shop banner 1" class="promo-banner-img" />
+                  </a>
+                </div>
+                <div class="promo-slide">
+                  <a href="catalog.html" class="promo-link">
+                    <img src="/img/anime.webp" alt="Kawai Shop banner 2" class="promo-banner-img" />
+                  </a>
+                </div>
+                <div class="promo-slide">
+                  <a href="catalog.html" class="promo-link">
+                    <img src="/img/a.webp" alt="Kawai Shop banner 3" class="promo-banner-img" />
+                  </a>
+                </div>
               </div>
             </div>
+            <div id="promo-dots" class="dots"></div>
           </div>
-          <div id="promo-dots" class="dots"></div>
         </div>
       </section>
 
-      <!-- ====== KATEGORIYALAR ====== -->
-      <section class="space-y-4">
+      <!-- ====== KATEGORIYALAR (sticker tabs, matches catalog) ====== -->
+      <section class="space-y-3">
         <div class="flex items-center justify-between">
-          <h2 class="heading-lg">Kategoriyalar</h2>
+          <h2 class="section-eyebrow">🏷️ Kategoriyalar</h2>
           <a href="catalog.html" class="text-sm text-pink-300/70 hover:text-pink-200" data-i18n="catalog"></a>
         </div>
 
@@ -281,38 +493,30 @@
           Kiyim, aksessuar, parfyum, kosmetika va boshqa qizlar uchun mahsulotlarni Kawai Shop orqali onlayn xarid qiling.
         </p>
 
-        <div class="cat-grid">
-          <a href="catalog.html?category=Kiyim" class="cat-pill">
-            <span class="cat-ico">👗</span>
-            <span class="cat-label" data-i18n="category_clothes">Kiyim</span>
+        <div class="kc-cat-scroller">
+          <a href="catalog.html?category=Kiyim" class="kc-tab">
+            <span class="ico">👗</span><span data-i18n="category_clothes">Kiyim</span>
           </a>
-          <a href="catalog.html?category=Aksessuar" class="cat-pill">
-            <span class="cat-ico">💍</span>
-            <span class="cat-label" data-i18n="category_accessory">Aksessuar</span>
+          <a href="catalog.html?category=Aksessuar" class="kc-tab">
+            <span class="ico">💍</span><span data-i18n="category_accessory">Aksessuar</span>
           </a>
-          <a href="catalog.html?category=Sumka" class="cat-pill">
-            <span class="cat-ico">👜</span>
-            <span class="cat-label">Sumka</span>
+          <a href="catalog.html?category=Sumka" class="kc-tab">
+            <span class="ico">👜</span><span>Sumka</span>
           </a>
-          <a href="catalog.html?category=Kosmetika" class="cat-pill">
-            <span class="cat-ico">💄</span>
-            <span class="cat-label">Kosmetika</span>
+          <a href="catalog.html?category=Kosmetika" class="kc-tab">
+            <span class="ico">💄</span><span>Kosmetika</span>
           </a>
-          <a href="catalog.html?category=Parfyum" class="cat-pill">
-            <span class="cat-ico">🌸</span>
-            <span class="cat-label">Parfyum</span>
+          <a href="catalog.html?category=Parfyum" class="kc-tab">
+            <span class="ico">🌸</span><span>Parfyum</span>
           </a>
-          <a href="catalog.html?category=Zargarlik" class="cat-pill">
-            <span class="cat-ico">✨</span>
-            <span class="cat-label">Zargarlik</span>
+          <a href="catalog.html?category=Zargarlik" class="kc-tab">
+            <span class="ico">✨</span><span>Zargarlik</span>
           </a>
-          <a href="catalog.html?category=Uy" class="cat-pill">
-            <span class="cat-ico">🕯️</span>
-            <span class="cat-label" data-i18n="category_home">Uy</span>
+          <a href="catalog.html?category=Uy" class="kc-tab">
+            <span class="ico">🕯️</span><span data-i18n="category_home">Uy</span>
           </a>
-          <a href="catalog.html?category=Kitob" class="cat-pill">
-            <span class="cat-ico">📖</span>
-            <span class="cat-label" data-i18n="category_book">Kitob</span>
+          <a href="catalog.html?category=Kitob" class="kc-tab">
+            <span class="ico">📖</span><span data-i18n="category_book">Kitob</span>
           </a>
         </div>
       </section>
@@ -320,9 +524,8 @@
       <!-- ====== YANGI MAHSULOTLAR ====== -->
       <section class="space-y-4">
         <div class="flex items-center justify-between">
-          <h2 class="heading-lg">
-            <span class="section-emoji">🌷</span>
-            Yangi keldi
+          <h2 class="section-eyebrow">
+            🌷 Yangi keldi
             <span class="badge-new">NEW</span>
           </h2>
           <a href="catalog.html" class="text-sm text-pink-300/70 hover:text-pink-200">Barchasi →</a>
@@ -336,10 +539,7 @@
       <!-- ====== OMMABOP ====== -->
       <section id="catalog" class="space-y-6">
         <div class="flex items-center justify-between">
-          <h2 class="heading-lg">
-            <span class="section-emoji">🔥</span>
-            Ommabop
-          </h2>
+          <h2 class="section-eyebrow">🔥 Ommabop</h2>
           <p class="text-sm text-pink-300/70" data-i18n="catalog_subtitle"></p>
         </div>
 
@@ -353,7 +553,8 @@
     </main>
 
     <footer class="border-t border-pink-900/30 py-8 text-center text-sm">
-      <p class="text-pink-200/50 mb-1">🌸 Kawai Shop — sen uchun tanlab olindi</p>
+      <p class="kc-footer-mark text-pink-200/60 mb-1">🌸 Kawai Shop</p>
+      <p class="text-pink-200/40 text-xs mb-2">sen uchun tanlab olindi</p>
       <a href="about.html" class="text-pink-300/60 hover:text-pink-200" data-i18n="about"></a>
     </footer>
 
