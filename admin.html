@@ -3,280 +3,485 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anime shop — Admin</title>
+    <title>Kawai Shop — Admin Panel</title>
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Anime Shop" />
+    <meta name="apple-mobile-web-app-title" content="Kawai Shop" />
     <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/output.css" />
     <link rel="stylesheet" href="css/theme.css" />
+
+    <style id="kc-loader-style">
+      #kc-page-loader {
+        position: fixed; inset: 0; z-index: 99999;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: 1.1rem;
+        background:
+          radial-gradient(800px 500px at 5% 0%, rgba(225,29,132,.18), transparent 55%),
+          radial-gradient(600px 400px at 95% 5%, rgba(192,38,211,.12), transparent 50%),
+          linear-gradient(180deg, #0f0812 0%, #150d1a 100%);
+        transition: opacity .32s ease, visibility .32s ease;
+      }
+      #kc-page-loader.kc-hidden { opacity:0; visibility:hidden; pointer-events:none; }
+      .kc-loader-logo {
+        font-family:"Fredoka",sans-serif; font-size:1.35rem; font-weight:700;
+        background:linear-gradient(135deg,#ffb3d1,#ff4d8d,#b48cff);
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      }
+      .kc-spinner-ring { position:relative; width:54px; height:54px; }
+      .kc-spinner-ring svg { position:absolute;inset:0;width:100%;height:100%;animation:kc-spin 1s linear infinite; }
+      .kc-spinner-ring svg circle { fill:none;stroke-width:3.5;stroke-linecap:round; }
+      .kc-spinner-ring svg .kc-track { stroke:rgba(255,180,210,.10); }
+      .kc-spinner-ring svg .kc-arc { stroke:url(#kc-grad);stroke-dasharray:110 200;animation:kc-spin 1s linear infinite,kc-dash .9s ease-in-out infinite alternate; }
+      @keyframes kc-spin { 100%{transform:rotate(360deg);} }
+      @keyframes kc-dash { from{stroke-dasharray:20 200;}to{stroke-dasharray:120 200;} }
+      .kc-loader-dots { display:flex;gap:.4rem; }
+      .kc-loader-dots span { width:5px;height:5px;border-radius:50%;background:rgba(255,140,180,.5);animation:kc-dot .9s ease-in-out infinite; }
+      .kc-loader-dots span:nth-child(1){animation-delay:0s}
+      .kc-loader-dots span:nth-child(2){animation-delay:.18s}
+      .kc-loader-dots span:nth-child(3){animation-delay:.36s}
+      @keyframes kc-dot{0%,100%{transform:scale(.7);opacity:.35}50%{transform:scale(1.2);opacity:1;background:#ff4d8d}}
+    </style>
+
+    <style>
+      body { font-family: 'Nunito', sans-serif; }
+
+      .logo-text {
+        font-family:'Fredoka',sans-serif;
+        background:linear-gradient(135deg,#ffb3d1,#ff4d8d,#b48cff);
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        background-clip:text;font-weight:700;letter-spacing:-.01em;
+      }
+
+      /* ── Admin header ── */
+      .admin-header-badge {
+        display: inline-flex; align-items: center; gap: .35rem;
+        padding: .2rem .7rem; border-radius: 999px;
+        background: rgba(255,77,141,.12);
+        border: 1px solid rgba(255,77,141,.25);
+        font-size: .62rem; font-weight: 800; letter-spacing: .08em;
+        text-transform: uppercase; color: #ffb3d1;
+      }
+
+      /* ── Logout btn ── */
+      .kc-logout-btn {
+        padding: .45rem 1.1rem; border-radius: 12px; font-size: .75rem; font-weight: 700;
+        background: rgba(239,68,68,.10); border: 1px solid rgba(239,68,68,.22);
+        color: #fca5a5; cursor: pointer; transition: background .17s;
+      }
+      .kc-logout-btn:hover { background: rgba(239,68,68,.20); }
+
+      /* ── Login box ── */
+      .kc-login-box {
+        max-width: 420px; margin: 0 auto;
+        background: linear-gradient(160deg, rgba(28,10,40,.97), rgba(15,5,24,.99));
+        border: 1px solid rgba(225,29,132,.16);
+        border-radius: 28px; padding: 2rem;
+      }
+      .kc-login-title {
+        font-family:'Fredoka',sans-serif; font-size:1.4rem; font-weight:600; color:#fff;
+      }
+      .kc-input {
+        width:100%; padding:.72rem 1rem; border-radius:14px;
+        background:rgba(255,180,210,.04)!important;
+        border:1px solid rgba(255,180,210,.12)!important;
+        color:#fff!important; font-size:.85rem;
+      }
+      .kc-input:focus { border-color:rgba(255,111,165,.45)!important; box-shadow:0 0 0 3px rgba(255,77,141,.12)!important; }
+      .kc-submit-btn {
+        width:100%; padding:.85rem; border-radius:14px;
+        background:linear-gradient(135deg,#ff4d8d,#ff8a7a);
+        border:none; color:#fff; font-size:.9rem; font-weight:800; cursor:pointer;
+        box-shadow:0 6px 20px rgba(255,77,141,.32);
+        transition:filter .17s,transform .17s;
+      }
+      .kc-submit-btn:hover { filter:brightness(1.08); transform:translateY(-1px); }
+
+      /* ── Section header ── */
+      .kc-sec-hd {
+        font-family:'Fredoka',sans-serif; font-size:1.05rem; font-weight:600;
+        color:#fff; display:flex; align-items:center; gap:.5rem; margin-bottom:1rem;
+      }
+      .kc-sec-hd .tag {
+        font-family:'Nunito',sans-serif; font-size:.62rem; font-weight:800;
+        letter-spacing:.08em; text-transform:uppercase; padding:.18rem .6rem;
+        border-radius:999px; background:rgba(255,77,141,.12);
+        border:1px solid rgba(255,77,141,.22); color:#ffb3d1;
+      }
+
+      /* ── Card wrapper ── */
+      .kc-card {
+        background:linear-gradient(160deg,rgba(28,10,40,.96),rgba(18,6,28,.99));
+        border:1px solid rgba(225,29,132,.10);
+        border-radius:22px; padding:1.25rem;
+      }
+
+      /* ── Form fields ── */
+      .kc-field-label { display:block; font-size:.75rem; font-weight:700; color:rgba(255,200,230,.55); margin-bottom:.4rem; }
+      .kc-field {
+        width:100%; padding:.68rem 1rem; border-radius:13px; font-size:.84rem;
+        background:rgba(255,180,210,.04)!important;
+        border:1px solid rgba(255,180,210,.10)!important;
+        color:#fff!important;
+      }
+      .kc-field:focus { border-color:rgba(255,111,165,.40)!important; box-shadow:0 0 0 3px rgba(255,77,141,.10)!important; }
+      .kc-field option { background:#1a0828!important; color:#fff!important; }
+      textarea.kc-field { min-height:100px; resize:vertical; }
+
+      /* ── Variant row ── */
+      .kc-variant-row {
+        display:grid; grid-template-columns:1fr 160px auto; gap:.6rem; margin-top:.75rem;
+      }
+      @media(max-width:580px){ .kc-variant-row { grid-template-columns:1fr auto; } }
+
+      .kc-ghost-btn {
+        padding:.62rem 1rem; border-radius:13px; font-size:.78rem; font-weight:700;
+        background:rgba(255,180,210,.05); border:1px dashed rgba(255,140,180,.22);
+        color:rgba(255,200,230,.72); cursor:pointer; white-space:nowrap;
+        transition:background .17s,border-color .17s;
+      }
+      .kc-ghost-btn:hover { background:rgba(255,77,141,.10); border-color:rgba(255,111,165,.35); color:#fff; }
+
+      /* ── Save btn ── */
+      .kc-save-btn {
+        padding:.8rem 2rem; border-radius:14px;
+        background:linear-gradient(135deg,#ff4d8d,#ff8a7a);
+        border:none; color:#fff; font-size:.88rem; font-weight:800; cursor:pointer;
+        box-shadow:0 6px 18px rgba(255,77,141,.30);
+        transition:filter .17s,transform .17s;
+      }
+      .kc-save-btn:hover { filter:brightness(1.08); transform:translateY(-1px); }
+
+      /* ── Profile info grid ── */
+      .kc-profile-grid { display:grid; gap:.75rem; }
+      @media(min-width:640px){ .kc-profile-grid { grid-template-columns:repeat(2,1fr); } }
+      .kc-profile-item {}
+      .kc-profile-item .lbl {
+        font-size:.65rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em;
+        color:rgba(255,179,209,.45); margin-bottom:.25rem;
+      }
+      .kc-profile-item .val { font-size:.9rem; font-weight:700; color:#fff; }
+
+      /* ── Nav tabs (sticky inside admin) ── */
+      .kc-admin-tabs {
+        display:flex; gap:.5rem; overflow-x:auto; padding:.2rem .1rem .5rem;
+        scrollbar-width:none; margin-bottom:.5rem;
+      }
+      .kc-admin-tabs::-webkit-scrollbar { display:none; }
+      .kc-admin-tab {
+        flex:0 0 auto; display:flex; align-items:center; gap:.35rem;
+        padding:.5rem 1rem; border-radius:12px; font-size:.78rem; font-weight:700;
+        color:rgba(255,220,235,.55);
+        background:rgba(255,255,255,.03); border:1px solid rgba(255,140,180,.12);
+        cursor:pointer; white-space:nowrap; text-decoration:none;
+        transition:background .16s,color .16s,border-color .16s;
+      }
+      .kc-admin-tab:hover { background:rgba(255,77,141,.10); border-color:rgba(255,111,165,.28); color:#fff; }
+      .kc-admin-tab.active {
+        background:linear-gradient(135deg,#ff4d8d,#ff8a7a);
+        border-color:transparent; color:#fff;
+        box-shadow:0 4px 14px rgba(255,77,141,.32);
+      }
+
+      /* ── Cat display pills (admin view only) ── */
+      .kc-cat-list { display:flex; flex-wrap:wrap; gap:.5rem; }
+      .kc-cat-tag {
+        display:inline-flex; align-items:center; gap:.35rem;
+        padding:.4rem .85rem; border-radius:999px; font-size:.75rem; font-weight:700;
+        background:rgba(255,180,210,.05); border:1px dashed rgba(255,140,180,.20);
+        color:rgba(255,210,230,.70);
+      }
+
+      /* ── Access denied ── */
+      #access-denied {
+        border-color:rgba(239,68,68,.25)!important;
+        background:rgba(239,68,68,.08)!important;
+        border-radius:20px; color:#fca5a5;
+      }
+
+      /* ── Receipt modal ── */
+      #receipt-modal { backdrop-filter:blur(10px); }
+      #receipt-modal > div {
+        background:linear-gradient(160deg,rgba(28,10,40,.98),rgba(15,5,24,.99));
+        border:1px solid rgba(225,29,132,.14); border-radius:24px;
+      }
+
+      /* ── File input ── */
+      input[type="file"].kc-field { padding:.5rem .8rem; }
+    </style>
   </head>
   <body class="theme-bg text-white">
-    <!-- ====== NAVBAR ====== -->
-    <header class="fixed top-0 z-50 flex h-14 w-full items-center justify-between border-b border-slate-700 bg-[#0f2f52] px-4 md:hidden">
-      <a href="index.html" class="text-lg font-semibold text-white">Anime shop</a>
-      <button
-        id="admin-logout-mobile"
-        class="hidden rounded-lg border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-white hover:border-white/40"
-      >
-        Logout
-      </button>
+
+    <!-- PAGE LOADER -->
+    <div id="kc-page-loader" role="status" aria-label="Yuklanmoqda">
+      <svg width="0" height="0" style="position:absolute">
+        <defs>
+          <linearGradient id="kc-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#ffb3d1"/>
+            <stop offset="50%"  stop-color="#ff4d8d"/>
+            <stop offset="100%" stop-color="#b48cff"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="kc-spinner-ring">
+        <svg viewBox="0 0 54 54">
+          <circle class="kc-track" cx="27" cy="27" r="23"/>
+          <circle class="kc-arc"   cx="27" cy="27" r="23"/>
+        </svg>
+      </div>
+      <div class="kc-loader-logo">🌸 Kawai Shop</div>
+      <div class="kc-loader-dots"><span></span><span></span><span></span></div>
+    </div>
+    <script>
+      (function(){
+        var el=document.getElementById("kc-page-loader");
+        function hide(){if(el)el.classList.add("kc-hidden");}
+        if(document.readyState==="complete"){setTimeout(hide,180);}
+        else{window.addEventListener("load",function(){setTimeout(hide,220);});}
+        setTimeout(hide,3500);
+      })();
+    </script>
+
+    <!-- MOBILE HEADER -->
+    <header class="fixed top-0 z-50 flex h-14 w-full items-center justify-between glass-soft px-4 md:hidden" style="border-bottom:1px solid rgba(225,29,132,.10);">
+      <a href="index.html" class="logo-text text-base">🌸 Kawai <span style="-webkit-text-fill-color:rgba(255,179,209,.55);font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:none;">ADMIN</span></a>
+      <button id="admin-logout-mobile" class="hidden kc-logout-btn">Chiqish</button>
     </header>
 
-    <header class="hidden border-b border-slate-700 bg-[#0f2f52] md:block">
+    <!-- DESKTOP HEADER -->
+    <header class="hidden glass-soft md:block" style="border-bottom:1px solid rgba(225,29,132,.08);">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <a href="index.html" class="text-xl font-bold text-white">Anime shop Admin</a>
+        <div class="flex items-center gap-3">
+          <a href="index.html" class="logo-text text-xl">🌸 Kawai Shop</a>
+          <span class="admin-header-badge">Admin</span>
+        </div>
         <nav class="flex items-center gap-3 text-sm">
-          <a href="index.html" class="text-slate-200 hover:text-white">Home</a>
-          <a href="orders.html" class="text-slate-200 hover:text-white">Orders</a>
-          <button
-            id="admin-logout-desktop"
-            class="hidden rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:border-white/40"
-          >
-            Logout
-          </button>
+          <a href="index.html" class="text-pink-200/70 hover:text-white">Bosh sahifa</a>
+          <a href="orders.html" class="text-pink-200/70 hover:text-white">Buyurtmalar</a>
+          <button id="admin-logout-desktop" class="hidden kc-logout-btn">Chiqish</button>
         </nav>
       </div>
     </header>
 
-    <!-- ====== ADMIN CHECK ====== -->
-    <main class="mx-auto max-w-6xl space-y-10 px-4 pb-24 pt-14 md:pt-16">
+    <main class="mx-auto max-w-6xl space-y-8 px-4 pb-24 pt-16 md:pt-14">
+
       <!-- LOGIN BOX -->
-      <div
-        id="admin-login-box"
-        class="hidden mx-auto max-w-md rounded-2xl border border-slate-700 bg-slate-800/60 p-6 shadow-lg"
-      >
-        <h2 class="text-xl font-semibold text-white">Admin login</h2>
-        <p class="mt-2 text-sm text-slate-300">
-          Admin panelga kirish uchun email va parolni kiriting.
-        </p>
-
-        <div class="mt-5 space-y-4">
-          <label class="block space-y-2 text-sm text-white/70">
-            <span>Email</span>
-            <input
-              id="admin-email"
-              type="email"
-              placeholder="Admin email"
-              class="w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-white outline-none"
-            />
-          </label>
-
-          <label class="block space-y-2 text-sm text-white/70">
-            <span>Parol</span>
-            <input
-              id="admin-password"
-              type="password"
-              placeholder="Parol"
-              class="w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-white outline-none"
-            />
-          </label>
-
-          <button
-            id="admin-login-btn"
-            class="w-full rounded-xl bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-600"
-          >
-            Kirish
-          </button>
-
-          <p id="admin-login-error" class="text-sm text-rose-300"></p>
+      <div id="admin-login-box" class="hidden flex min-h-[70vh] items-center justify-center">
+        <div class="kc-login-box w-full">
+          <div class="mb-1" style="font-size:2rem;">🔐</div>
+          <h2 class="kc-login-title">Admin kirish</h2>
+          <p class="mt-1 mb-5 text-sm" style="color:rgba(255,200,230,.45);">Faqat adminlar uchun</p>
+          <div class="space-y-3">
+            <div>
+              <label class="kc-field-label">Email</label>
+              <input id="admin-email" type="email" placeholder="admin@email.com" class="kc-input" />
+            </div>
+            <div>
+              <label class="kc-field-label">Parol</label>
+              <input id="admin-password" type="password" placeholder="••••••••" class="kc-input" />
+            </div>
+            <button id="admin-login-btn" class="kc-submit-btn mt-1">Kirish</button>
+            <p id="admin-login-error" class="text-sm" style="color:#fca5a5;"></p>
+          </div>
         </div>
       </div>
 
-      <div id="access-denied" class="hidden rounded-2xl border border-rose-400/40 bg-rose-900/30 p-6 text-center text-sm text-rose-100">
-        Kechirasiz, bu bo‘lim faqat admin email bilan kirgan foydalanuvchilar uchun.
+      <!-- ACCESS DENIED -->
+      <div id="access-denied" class="hidden p-6 text-center text-sm">
+        ⛔ Kechirasiz, bu bo'lim faqat admin uchun.
       </div>
 
-      <section id="admin-panel" class="hidden space-y-10">
-        <section class="space-y-4">
-          <h2 class="text-xl font-semibold text-white">Admin profil</h2>
-          <div class="rounded-2xl glass p-6 shadow-sm">
-            <div class="grid gap-4 text-sm text-white/80 md:grid-cols-2">
-              <div>
-                <p class="text-xs uppercase tracking-wide text-white/50">Email</p>
-                <p id="admin-email-view" class="mt-1 text-sm font-semibold text-white">nurullohkomilov163@gmail.com</p>
+      <!-- ADMIN PANEL -->
+      <section id="admin-panel" class="hidden space-y-8">
+
+        <!-- NAV TABS -->
+        <div class="kc-admin-tabs">
+          <a href="#profile" class="kc-admin-tab active">👤 Profil</a>
+          <a href="#products" class="kc-admin-tab">📦 Mahsulot qo'shish</a>
+          <a href="#product-list" class="kc-admin-tab">🗂️ Mahsulotlar</a>
+          <a href="#comments" class="kc-admin-tab">💬 Izohlar</a>
+          <a href="#payments" class="kc-admin-tab">💳 Buyurtmalar</a>
+        </div>
+
+        <!-- PROFILE -->
+        <section id="profile" class="space-y-3">
+          <div class="kc-sec-hd">👤 Admin profil <span class="tag">INFO</span></div>
+          <div class="kc-card">
+            <div class="kc-profile-grid">
+              <div class="kc-profile-item">
+                <div class="lbl">Email</div>
+                <div class="val" id="admin-email-view">—</div>
               </div>
-              <div>
-                <p class="text-xs uppercase tracking-wide text-white/50">Ism</p>
-                <p id="admin-name-view" class="mt-1 text-sm text-white/80">—</p>
+              <div class="kc-profile-item">
+                <div class="lbl">Ism</div>
+                <div class="val" id="admin-name-view">—</div>
               </div>
-              <div>
-                <p class="text-xs uppercase tracking-wide text-white/50">Telefon</p>
-                <p class="mt-1 text-sm text-white/80">—</p>
+              <div class="kc-profile-item">
+                <div class="lbl">Telefon</div>
+                <div class="val">—</div>
               </div>
-              <div>
-                <p class="text-xs uppercase tracking-wide text-white/50">Manzil</p>
-                <p class="mt-1 text-sm text-white/80">—</p>
+              <div class="kc-profile-item">
+                <div class="lbl">Rol</div>
+                <div class="val" style="color:#ffb3d1;">⭐ Admin</div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="products" class="space-y-4">
-          <h2 class="text-xl font-semibold text-white">Yangi mahsulot qo‘shish</h2>
-          <div class="rounded-2xl glass p-6 shadow-sm">
+        <!-- ADD PRODUCT -->
+        <section id="products" class="space-y-3">
+          <div class="kc-sec-hd">✨ Yangi mahsulot qo'shish <span class="tag">NEW</span></div>
+          <div class="kc-card">
             <form id="admin-product-form" class="space-y-4">
               <div class="grid gap-4 md:grid-cols-2">
-                <label class="space-y-2 text-sm text-white/70">
-                  <span>Mahsulot nomi</span>
-                  <input id="product-title" required class="w-full rounded-xl border border-slate-700 bg-slate-800/60 px-4 py-2 text-sm text-white" />
-                </label>
-                <label class="space-y-2 text-sm text-white/70">
-                  <span>Kategoriya</span>
-                  <select id="product-category" class="w-full rounded-xl border border-slate-700 bg-slate-800/60 px-4 py-2 text-sm text-white">
-                    <option value="Telefon">O'yinchoq</option>
-                    <option value="Kino">Figurka</option>
-                    <option value="Noutbuk">Cosplay</option>
-                    <option value="Uy">Gift box</option>
-                    <option value="Kiyim">Kiyim</option>
-                    <option value="Aksessuar">Aksessuar</option>
-                    <option value="Kitob">Kitob</option>
+                <div>
+                  <label class="kc-field-label">Mahsulot nomi</label>
+                  <input id="product-title" required class="kc-field" placeholder="Masalan: Gül parfyum 50ml" />
+                </div>
+                <div>
+                  <label class="kc-field-label">Kategoriya</label>
+                  <select id="product-category" class="kc-field">
+                    <option value="Kiyim">👗 Kiyim</option>
+                    <option value="Aksessuar">💍 Aksessuar</option>
+                    <option value="Sumka">👜 Sumka</option>
+                    <option value="Kosmetika">💄 Kosmetika</option>
+                    <option value="Parfyum">🌸 Parfyum</option>
+                    <option value="Zargarlik">✨ Zargarlik</option>
+                    <option value="Uy">🕯️ Uy</option>
+                    <option value="Kitob">📖 Kitob</option>
                   </select>
-                </label>
-                <label class="space-y-2 text-sm text-white/70">
-                  <span>Narx</span>
-                  <input id="product-price" type="number" min="0" required class="w-full rounded-xl border border-slate-700 bg-slate-800/60 px-4 py-2 text-sm text-white" />
-                </label>
-                <label class="space-y-2 text-sm text-white/70">
-                  <span>Ombordagi soni</span>
-                  <input id="product-stock" type="number" min="0" class="w-full rounded-xl border border-slate-700 bg-slate-800/60 px-4 py-2 text-sm text-white" />
-                </label>
-                <label class="space-y-2 text-sm text-white/70">
-                  <span>Eski narx (ixtiyoriy)</span>
-                  <input id="product-old-price" type="number" min="0" class="w-full rounded-xl border border-slate-700 bg-slate-800/60 px-4 py-2 text-sm text-white" />
-                </label>
-                <label class="space-y-2 text-sm text-white/70">
-                  <span>Chegirma foizi (ixtiyoriy)</span>
-                  <input id="product-discount" type="number" min="0" max="100" class="w-full rounded-xl border border-slate-700 bg-slate-800/60 px-4 py-2 text-sm text-white" />
-                </label>
-                <label class="space-y-2 text-sm text-white/70">
-                  <span>Reyting (ixtiyoriy)</span>
-                  <input id="product-rating" type="number" min="0" max="5" step="0.1" class="w-full rounded-xl border border-slate-700 bg-slate-800/60 px-4 py-2 text-sm text-white" />
-                </label>
+                </div>
+                <div>
+                  <label class="kc-field-label">Narx (so'm)</label>
+                  <input id="product-price" type="number" min="0" required class="kc-field" placeholder="0" />
+                </div>
+                <div>
+                  <label class="kc-field-label">Ombordagi soni</label>
+                  <input id="product-stock" type="number" min="0" class="kc-field" placeholder="0" />
+                </div>
+                <div>
+                  <label class="kc-field-label">Eski narx (ixtiyoriy)</label>
+                  <input id="product-old-price" type="number" min="0" class="kc-field" placeholder="0" />
+                </div>
+                <div>
+                  <label class="kc-field-label">Chegirma % (ixtiyoriy)</label>
+                  <input id="product-discount" type="number" min="0" max="100" class="kc-field" placeholder="0" />
+                </div>
+                <div>
+                  <label class="kc-field-label">Reyting (0–5)</label>
+                  <input id="product-rating" type="number" min="0" max="5" step="0.1" class="kc-field" placeholder="4.5" />
+                </div>
               </div>
-              <div class="rounded-2xl border border-slate-700 bg-slate-800/40 p-4">
-                <p class="text-sm font-semibold text-white">Variantlar / O'lchamlar</p>
-                <p class="mt-1 text-xs text-white/60">Agar mahsulot bir nechta variantga ega bo‘lsa, shu yerda qo‘shing.</p>
-                <div class="mt-3 grid gap-3 sm:grid-cols-[1fr_180px_auto]">
-                  <input
-                    id="variant-name"
-                    type="text"
-                    placeholder="Masalan: 250 ml"
-                    class="w-full rounded-xl border border-slate-700 bg-slate-800/60 px-4 py-2 text-sm text-white"
-                  />
-                  <input
-                    id="variant-price"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    placeholder="Narx"
-                    class="w-full rounded-xl border border-slate-700 bg-slate-800/60 px-4 py-2 text-sm text-white"
-                  />
-                  <button
-                    id="add-variant-btn"
-                    type="button"
-                    class="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:border-white/40"
-                  >
-                    ➕ Add variant
-                  </button>
+
+              <!-- Variants -->
+              <div class="kc-card" style="border-style:dashed;border-color:rgba(255,140,180,.18);background:rgba(255,180,210,.02);">
+                <div class="kc-sec-hd" style="font-size:.85rem;margin-bottom:.5rem;">🎀 Variantlar / O'lchamlar</div>
+                <p class="text-xs mb-3" style="color:rgba(255,200,230,.40);">Rang, o'lcham yoki hajm variantlarini qo'shing</p>
+                <div class="kc-variant-row">
+                  <input id="variant-name" type="text" placeholder="Masalan: S / Qizil / 250ml" class="kc-field" />
+                  <input id="variant-price" type="number" min="0" step="0.01" placeholder="Narx" class="kc-field" />
+                  <button id="add-variant-btn" type="button" class="kc-ghost-btn">➕ Qo'shish</button>
                 </div>
                 <div id="variant-list" class="mt-3 space-y-2"></div>
               </div>
-              <label class="space-y-2 text-sm text-white/70">
-                <span>Tavsif</span>
-                <textarea id="pDesc" rows="4" class="w-full rounded-xl border border-slate-700 bg-slate-800/60 px-4 py-2 text-sm text-white"></textarea>
-              </label>
-              <label class="space-y-2 text-sm text-white/70">
-                <span>Rasmlar (maksimum 10 ta)</span>
-                <input
-                  id="pImages"
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  class="w-full rounded-xl border border-slate-700 bg-slate-800/60 px-4 py-2 text-sm text-white"
-                />
-              </label>
-              <p id="image-limit-error" class="hidden text-xs text-rose-200">Maksimum 10 ta rasm yuklash mumkin.</p>
+
+              <!-- Description -->
+              <div>
+                <label class="kc-field-label">Tavsif</label>
+                <textarea id="pDesc" class="kc-field" placeholder="Mahsulot haqida batafsil..."></textarea>
+              </div>
+
+              <!-- Images -->
+              <div>
+                <label class="kc-field-label">Rasmlar (maksimum 10 ta)</label>
+                <input id="pImages" type="file" accept="image/*" multiple class="kc-field" />
+                <p id="image-limit-error" class="hidden text-xs mt-1" style="color:#fca5a5;">Maksimum 10 ta rasm yuklash mumkin.</p>
+              </div>
               <div id="image-preview" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4"></div>
-              <button id="btnSave" class="rounded-xl bg-blue-500 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-600">Saqlash</button>
+
+              <button id="btnSave" type="submit" class="kc-save-btn">💾 Saqlash</button>
             </form>
           </div>
         </section>
 
-        <section class="space-y-4">
-          <h2 class="text-xl font-semibold text-white">Katalog kategoriyalari</h2>
-          <div class="cat-grid">
-            <div class="cat-pill">
-              <span class="cat-ico">📱</span>
-              <span class="cat-label">Telefon</span>
-            </div>
-            <div class="cat-pill">
-              <span class="cat-ico">🎬</span>
-              <span class="cat-label">Kino</span>
-            </div>
-            <div class="cat-pill">
-              <span class="cat-ico">💻</span>
-              <span class="cat-label">Noutbuk</span>
-            </div>
-            <div class="cat-pill">
-              <span class="cat-ico">🏠</span>
-              <span class="cat-label">Uy</span>
-            </div>
-            <div class="cat-pill">
-              <span class="cat-ico">👕</span>
-              <span class="cat-label">Kiyim</span>
-            </div>
-            <div class="cat-pill">
-              <span class="cat-ico">🧸</span>
-              <span class="cat-label">Aksessuar</span>
-            </div>
-            <div class="cat-pill">
-              <span class="cat-ico">📚</span>
-              <span class="cat-label">Kitob</span>
+        <!-- CATEGORIES display -->
+        <section class="space-y-3">
+          <div class="kc-sec-hd">🏷️ Katalog kategoriyalari</div>
+          <div class="kc-card">
+            <div class="kc-cat-list">
+              <span class="kc-cat-tag">👗 Kiyim</span>
+              <span class="kc-cat-tag">💍 Aksessuar</span>
+              <span class="kc-cat-tag">👜 Sumka</span>
+              <span class="kc-cat-tag">💄 Kosmetika</span>
+              <span class="kc-cat-tag">🌸 Parfyum</span>
+              <span class="kc-cat-tag">✨ Zargarlik</span>
+              <span class="kc-cat-tag">🕯️ Uy</span>
+              <span class="kc-cat-tag">📖 Kitob</span>
             </div>
           </div>
         </section>
 
-        <section class="space-y-4">
-          <h2 class="text-xl font-semibold text-white">Mahsulotlar ro‘yxati</h2>
-          <div id="admin-products-empty" class="hidden rounded-2xl border border-slate-700 bg-slate-800/60 p-4 text-sm text-slate-200">
-            Hali mahsulot qo‘shilmagan
+        <!-- PRODUCTS LIST -->
+        <section id="product-list" class="space-y-3">
+          <div class="kc-sec-hd">🗂️ Mahsulotlar ro'yxati</div>
+          <div id="admin-products-empty" class="hidden kc-card text-sm text-center py-8" style="color:rgba(255,200,230,.40);">
+            <span style="font-size:2rem;display:block;margin-bottom:.5rem;">📦</span>
+            Hali mahsulot qo'shilmagan
           </div>
           <div id="adminProducts" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"></div>
         </section>
 
-        <section id="comments" class="space-y-4">
-          <h2 class="text-xl font-semibold text-white">Kommentariyalar</h2>
-          <div id="comments-empty" class="hidden rounded-2xl glass p-6 text-sm text-slate-200">
-            Hozircha izoh yo‘q
+        <!-- COMMENTS -->
+        <section id="comments" class="space-y-3">
+          <div class="kc-sec-hd">💬 Izohlar <span class="tag">MODERATION</span></div>
+          <div id="comments-empty" class="hidden kc-card text-sm text-center py-8" style="color:rgba(255,200,230,.40);">
+            <span style="font-size:2rem;display:block;margin-bottom:.5rem;">💬</span>
+            Hozircha izoh yo'q
           </div>
           <div id="admin-comments" class="space-y-4"></div>
         </section>
 
-        <section id="payments" class="space-y-4">
-          <h1 class="text-2xl font-semibold text-white">Tekshiruvdagi buyurtmalar</h1>
-          <div id="pending-empty" class="hidden rounded-2xl glass p-6 text-sm text-slate-200">
-            Tekshiruvda buyurtma yo'q.
+        <!-- PAYMENTS / ORDERS -->
+        <section id="payments" class="space-y-3">
+          <div class="kc-sec-hd">💳 Tekshiruvdagi buyurtmalar <span class="tag">PENDING</span></div>
+          <div id="pending-empty" class="hidden kc-card text-sm text-center py-8" style="color:rgba(255,200,230,.40);">
+            <span style="font-size:2rem;display:block;margin-bottom:.5rem;">✅</span>
+            Tekshiruvda buyurtma yo'q
           </div>
           <div id="pending-orders" class="grid gap-4"></div>
         </section>
+
       </section>
     </main>
 
-    <!-- ====== RECEIPT VERIFICATION ====== -->
-    <div id="receipt-modal" class="fixed inset-0 hidden items-center justify-center bg-slate-900/80 p-4">
-      <div class="max-w-3xl rounded-2xl glass p-4">
-        <div class="flex items-center justify-between">
-          <h3 class="text-sm font-semibold text-white">Receipt preview</h3>
-          <button id="receipt-close" class="text-white/70">✕</button>
+    <!-- RECEIPT MODAL -->
+    <div id="receipt-modal" class="fixed inset-0 hidden items-center justify-center p-4" style="background:rgba(8,2,14,.80);z-index:9999;">
+      <div class="max-w-3xl w-full p-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-semibold text-white">🧾 To'lov cheki</h3>
+          <button id="receipt-close" class="kc-logout-btn">✕ Yopish</button>
         </div>
-        <img id="receipt-image" src="" alt="receipt" class="mt-4 max-h-[70vh] w-full rounded-xl object-contain" />
+        <img id="receipt-image" src="" alt="receipt" class="max-h-[70vh] w-full rounded-xl object-contain" style="background:rgba(255,180,210,.03);" />
       </div>
     </div>
+
+    <!-- Smooth tab scroll -->
+    <script>
+      document.querySelectorAll('.kc-admin-tab').forEach(function(tab){
+        tab.addEventListener('click', function(){
+          document.querySelectorAll('.kc-admin-tab').forEach(function(t){ t.classList.remove('active'); });
+          tab.classList.add('active');
+        });
+      });
+    </script>
 
     <script type="module" src="js/admin.js"></script>
   </body>
 </html>
-
